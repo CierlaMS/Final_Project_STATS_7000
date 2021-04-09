@@ -1,0 +1,22 @@
+---
+title: "Olympic Athlete Events"
+output: html_notebook
+---
+# 120 years of Olympic history: athletes and results
+# Basic bio data on athletes and medal results from Athens 1896 to Rio 2016
+
+# Dataset downloaded from: https://www.kaggle.com/heesoo37/120-years-of-olympic-history-athletes-and-results
+
+```{r}
+View(Olympic_athlete_events)
+
+Olympic_athlete_events <- read.delim("C:/Users/cierl/Desktop/Olympic_athlete_events.txt")
+
+View(Olympic_athlete_events)
+```
+
+# Plotting Athlete names with height vs. medal
+```{r}
+ggplot2(Olympic_athlete_events, aes())
+```
+
