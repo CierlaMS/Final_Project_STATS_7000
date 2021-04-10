@@ -8,15 +8,24 @@ output: html_notebook
 # Dataset downloaded from: https://www.kaggle.com/heesoo37/120-years-of-olympic-history-athletes-and-results
 
 ```{r}
-View(Olympic_athlete_events)
-
-Olympic_athlete_events <- read.delim("C:/Users/cierl/Desktop/Olympic_athlete_events.txt")
+Olympic_athlete_events <- read.delim("C:/Users/cierl/Desktop/STAT_7000/Olympic_athlete_events.txt")
 
 View(Olympic_athlete_events)
 ```
 
 # Plotting Athlete names with height vs. medal
 ```{r}
-ggplot2(Olympic_athlete_events, aes())
+boxplot(Age~Medal, data=Olympic_athlete_events, main.lab="Medals Awarded by Age", xlab="Age", ylab= "Medal", width = NULL, varwidth = FALSE, par(cex.axis=1))
 ```
+
+# Perform an ANOVA 
+```{r}
+fm.full <- aov(Age~Medal, data=Olympic_athlete_events)
+anova(fm.full)
+```
+# Calculate Mean values per Medal
+```{r}
+aggregate(Age~Medal, data=Olympic_athlete_events, mean)
+```
+
 
