@@ -4,7 +4,7 @@ output: html_notebook
 ---
 
 ```{r}
-oly.data <- subset(Olympic_athlete_events [c(1,3,4,5,6,7,15)])
+oly.data <- subset(Olympic_athlete_events [c(1,3,4,5,6,7,13,15)])
 ```
 
 BMI calculation: weight (kg) / height (m)^2
@@ -12,6 +12,25 @@ BMI calculation: weight (kg) / height (m)^2
 ```{r}
 oly.data$BMI <- (oly.data$Weight / (oly.data$Height/100)^2)
 ```
+
+```{r}
+fm.bmi<- lm(BMI ~ Sex, data=oly.data)
+anova(fm.bmi)
+fm.bmi.aov <- aov(BMI ~ Sex, data=oly.data)
+TukeyHSD(fm.bmi.aov, ordered=TRUE)
+```
+```{r}
+class <- cut(oly.data$Age, breaks = c(10, 20, 30, 40, 70), labels = c("Y","S", "M", "O"), right=FALSE)
+oly.data.age <- cbind(oly.data, class)
+```
+
+```{r}
+fm.bmi.age<- lm(BMI ~ class, data=oly.data.age)
+anova(fm.bmi.age)
+fm.bmi.age.aov <- aov(BMI ~ class, data=oly.data.age)
+TukeyHSD(fm.bmi.age.aov, ordered=TRUE)
+```
+
 
 ```{r}
 density.gold <- density(oly.data$BMI[oly.data$Medal=="Gold"])
@@ -51,3 +70,11 @@ Non-USA athletes= 25908 total, 8735 female
 prop.test(x=c(1615, 8735), n=c(4273,25908), alternative="greater")
 ```
 USA sends a greater proportion of female athletes to the Olympics when compared to all other teams
+
+BMI of endurance vs strength athletes
+```{r}
+oly.data.strength <- subset(oly.data[c("Weightlifting", "Gymnastics", "Boxing", "Wrestling")])
+oly.data.emdurance <- subset(oly.data[Sport = c("Rowing", "Cycling", "Cross Country Skiing")])
+```
+
+
